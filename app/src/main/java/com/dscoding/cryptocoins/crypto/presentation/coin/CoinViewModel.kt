@@ -37,10 +37,6 @@ class CoinViewModel(private val coinDataSource: CoinDataSource) : ViewModel() {
             is CoinAction.OnCoinClick -> {
                 selectCoin(coinUi = action.coinUi)
             }
-
-            CoinAction.OnRefresh -> {
-                loadCoins()
-            }
         }
     }
 
@@ -48,7 +44,6 @@ class CoinViewModel(private val coinDataSource: CoinDataSource) : ViewModel() {
         _state.update { it.copy(selectionCoin = coinUi) }
 
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
 
             coinDataSource
                 .getCoinHistory(
@@ -70,8 +65,6 @@ class CoinViewModel(private val coinDataSource: CoinDataSource) : ViewModel() {
                         CoinEvent.OnLoadCoinHistoryError(error.toUiText())
                     )
                 }
-
-            _state.update { it.copy(isLoading = false) }
 
         }
     }

@@ -92,7 +92,7 @@ private fun CoinListItemPreview() {
         CoinListItem(
             coinUi = previewCoin,
             onClick = {},
-            modifier = Modifier.background(MaterialTheme.colorScheme.background)
+            modifier = Modifier.background(MaterialTheme.colorScheme.background),
         )
     }
 }

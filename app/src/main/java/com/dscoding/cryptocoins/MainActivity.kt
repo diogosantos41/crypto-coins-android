@@ -4,7 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.dscoding.cryptocoins.crypto.presentation.coin.CoinNavigation
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import com.dscoding.cryptocoins.core.navigation.AdaptiveCoinListDetailPane
 import com.dscoding.cryptocoins.ui.theme.CryptoCoinsTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,9 +17,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CryptoCoinsTheme {
-                    CoinNavigation()
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    AdaptiveCoinListDetailPane(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
+}
 

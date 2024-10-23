@@ -2,6 +2,7 @@
 
 package com.dscoding.cryptocoins.crypto.presentation.coin_detail
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -123,7 +125,20 @@ fun CoinDetailScreen(
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            CoinPriceChart(prices = coin.coinPriceHistory)
+            AnimatedVisibility(
+                visible = coin.coinPriceHistory.isNotEmpty()
+            ) {
+                CoinPriceChart(
+                    prices = coin.coinPriceHistory,
+                    style = LineChartStyle(
+                        lineColor = MaterialTheme.colorScheme.primary.toArgb(),
+                        lineWidth = 2f,
+                        valueColor = MaterialTheme.colorScheme.onSurface.toArgb(),
+                        gridColor = MaterialTheme.colorScheme.onSurface.toArgb(),
+                        gridLineWidth = 1f
+                    )
+                )
+            }
         }
     }
 }

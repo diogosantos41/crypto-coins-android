@@ -4,5 +4,4 @@ import com.dscoding.cryptocoins.crypto.presentation.models.CoinUi
 
 sealed interface CoinAction {
     data class OnCoinClick(val coinUi: CoinUi): CoinAction
-    data object OnRefresh: CoinAction
 }
