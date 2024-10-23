@@ -16,15 +16,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dscoding.cryptocoins.crypto.presentation.coin_list.components.CoinListItem
 import com.dscoding.cryptocoins.crypto.presentation.coin_list.components.previewCoin
-import com.dscoding.cryptocoins.crypto.presentation.coin_root.CoinRootAction
-import com.dscoding.cryptocoins.crypto.presentation.coin_root.CoinRootState
+import com.dscoding.cryptocoins.crypto.presentation.coin.CoinAction
+import com.dscoding.cryptocoins.crypto.presentation.coin.CoinState
 import com.dscoding.cryptocoins.ui.theme.CryptoCoinsTheme
 
 
 @Composable
 fun CoinListScreen(
-    state: CoinRootState,
-    onAction: (CoinRootAction) -> Unit,
+    state: CoinState,
+    onAction: (CoinAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (state.isLoading) {
@@ -42,7 +42,7 @@ fun CoinListScreen(
             items(state.coins) { coinUi ->
                 CoinListItem(
                     coinUi = coinUi,
-                    onClick = { onAction(CoinRootAction.OnCoinClick(coinUi)) },
+                    onClick = { onAction(CoinAction.OnCoinClick(coinUi)) },
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -55,7 +55,7 @@ fun CoinListScreen(
 private fun CoinListScreenPreview() {
     CryptoCoinsTheme {
         CoinListScreen(
-            state = CoinRootState(coins = (1..100).map {
+            state = CoinState(coins = (1..100).map {
                 previewCoin.copy(id = it.toString())
             }),
             onAction = {},

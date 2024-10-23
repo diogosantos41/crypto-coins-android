@@ -3,6 +3,7 @@ package com.dscoding.cryptocoins.crypto.presentation.models
 import androidx.annotation.DrawableRes
 import com.dscoding.cryptocoins.crypto.domain.Coin
 import com.dscoding.cryptocoins.core.presentation.util.getDrawableIdForCoin
+import com.dscoding.cryptocoins.crypto.domain.CoinPrice
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -14,7 +15,8 @@ data class CoinUi(
     val marketCapUsd: DisplayableNumber,
     val priceUsd: DisplayableNumber,
     val changePercent24Hr: DisplayableNumber,
-    @DrawableRes val iconRes: Int
+    @DrawableRes val iconRes: Int,
+    val coinPriceHistory: List<CoinPrice> = emptyList()
 )
 
 data class DisplayableNumber(
@@ -31,7 +33,7 @@ fun Coin.toCoinUi(): CoinUi {
         priceUsd = priceUsd.toDisplayableNumber(),
         marketCapUsd = marketCapUsd.toDisplayableNumber(),
         changePercent24Hr = changePercent24Hr.toDisplayableNumber(),
-        iconRes = getDrawableIdForCoin(symbol)
+        iconRes = getDrawableIdForCoin(symbol),
     )
 }
 

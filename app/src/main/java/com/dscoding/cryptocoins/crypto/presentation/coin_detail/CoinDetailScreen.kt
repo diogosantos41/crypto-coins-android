@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -32,8 +34,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dscoding.cryptocoins.R
+import com.dscoding.cryptocoins.crypto.presentation.coin.CoinState
+import com.dscoding.cryptocoins.crypto.presentation.coin_detail.components.CoinPriceChart
 import com.dscoding.cryptocoins.crypto.presentation.coin_detail.components.InfoCard
-import com.dscoding.cryptocoins.crypto.presentation.coin_root.CoinRootState
 import com.dscoding.cryptocoins.crypto.presentation.coin_list.components.previewCoin
 import com.dscoding.cryptocoins.crypto.presentation.models.toDisplayableNumber
 import com.dscoding.cryptocoins.ui.theme.CryptoCoinsTheme
@@ -41,7 +44,7 @@ import com.dscoding.cryptocoins.ui.theme.greenBackground
 
 @Composable
 fun CoinDetailScreen(
-    state: CoinRootState,
+    state: CoinState,
     modifier: Modifier = Modifier
 ) {
     val contentColor = if (isSystemInDarkTheme()) {
@@ -115,19 +118,23 @@ fun CoinDetailScreen(
                         ImageVector.vectorResource(R.drawable.trending)
                     } else {
                         ImageVector.vectorResource(R.drawable.trending_down)
-                    }
+                    },
+                    contentColor = contentColor
                 )
             }
+            Spacer(modifier = Modifier.height(16.dp))
+            CoinPriceChart(prices = coin.coinPriceHistory)
         }
     }
 }
+
 
 @PreviewLightDark
 @Composable
 private fun CoinDetailScreenPreview() {
     CryptoCoinsTheme {
         CoinDetailScreen(
-            state = CoinRootState(selectionCoin = previewCoin),
+            state = CoinState(selectionCoin = previewCoin),
             modifier = Modifier.background(MaterialTheme.colorScheme.background)
         )
     }

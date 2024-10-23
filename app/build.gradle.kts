@@ -64,6 +64,8 @@ dependencies {
 
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
+    implementation(libs.mp.android.chart)
+
     implementation(libs.bundles.koin)
 
     implementation(libs.bundles.ktor)

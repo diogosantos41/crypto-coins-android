@@ -1,4 +1,4 @@
-package com.dscoding.cryptocoins.crypto.presentation.coin_root
+package com.dscoding.cryptocoins.crypto.presentation.coin
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,11 +15,19 @@ import com.dscoding.cryptocoins.crypto.presentation.coin_list.CoinListScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CoinNavigation(viewModel: CoinRootViewModel = koinViewModel<CoinRootViewModel>()) {
+fun CoinNavigation(viewModel: CoinViewModel = koinViewModel<CoinViewModel>()) {
     val context = LocalContext.current
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
-            is CoinRootEvent.OnLoadCoinsError -> {
+            is CoinEvent.OnLoadCoinsError -> {
+                Toast.makeText(
+                    context,
+                    event.message.asString(context),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            is CoinEvent.OnLoadCoinHistoryError -> {
                 Toast.makeText(
                     context,
                     event.message.asString(context),
@@ -40,6 +48,7 @@ fun CoinNavigation(viewModel: CoinRootViewModel = koinViewModel<CoinRootViewMode
                     modifier = Modifier.padding(innerPadding)
                 )
             }
+
             else -> {
                 CoinListScreen(
                     state = state,

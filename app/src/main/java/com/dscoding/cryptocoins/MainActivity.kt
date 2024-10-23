@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.dscoding.cryptocoins.crypto.presentation.coin_root.CoinNavigation
+import com.dscoding.cryptocoins.crypto.presentation.coin.CoinNavigation
 import com.dscoding.cryptocoins.ui.theme.CryptoCoinsTheme
 
 class MainActivity : ComponentActivity() {
