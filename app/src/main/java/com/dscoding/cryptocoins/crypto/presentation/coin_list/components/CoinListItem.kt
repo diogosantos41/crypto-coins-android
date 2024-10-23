@@ -91,7 +91,7 @@ private fun CoinListItemPreview() {
     CryptoCoinsTheme {
         CoinListItem(
             coinUi = previewCoin,
-            onClick = {}, //
+            onClick = {},
             modifier = Modifier.background(MaterialTheme.colorScheme.background),
         )
     }
