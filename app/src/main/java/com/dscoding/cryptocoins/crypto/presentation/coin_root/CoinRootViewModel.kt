@@ -1,4 +1,4 @@
-package com.dscoding.cryptocoins.crypto.presentation.coin_list
+package com.dscoding.cryptocoins.crypto.presentation.coin_root
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,27 +16,31 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class CoinListViewModel(private val coinDataSource: CoinDataSource) : ViewModel() {
+class CoinRootViewModel(private val coinDataSource: CoinDataSource) : ViewModel() {
 
-    private val _state = MutableStateFlow(CoinListState())
+    private val _state = MutableStateFlow(CoinRootState())
     val state = _state
         .onStart { loadCoins() }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
-            CoinListState()
+            CoinRootState()
         )
 
-    private val _events = Channel<CoinListEvent>()
+    private val _events = Channel<CoinRootEvent>()
     val events = _events.receiveAsFlow()
 
-    fun onAction(action: CoinListAction) {
+    fun onAction(action: CoinRootAction) {
         when (action) {
-            is CoinListAction.OnCoinClick -> {
-
+            is CoinRootAction.OnCoinClick -> {
+                _state.update {
+                    it.copy(
+                        selectionCoin = action.coinUi
+                    )
+                }
             }
 
-            CoinListAction.OnRefresh -> {
+            CoinRootAction.OnRefresh -> {
                 loadCoins()
             }
         }
@@ -53,11 +57,11 @@ class CoinListViewModel(private val coinDataSource: CoinDataSource) : ViewModel(
                 }
                 .onError { error ->
                     _events.send(
-                        CoinListEvent.OnLoadCoinsError(error.toUiText())
+                        CoinRootEvent.OnLoadCoinsError(error.toUiText())
                     )
                 }
+            _state.update { it.copy(isLoading = false) }
         }
-        _state.update { it.copy(isLoading = false) }
     }
 }
 
