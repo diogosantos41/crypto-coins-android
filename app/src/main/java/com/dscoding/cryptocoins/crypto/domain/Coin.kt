@@ -1,4 +1,4 @@
-package com.dscoding.cryptocoins.crypto
+package com.dscoding.cryptocoins.crypto.domain
 
 data class Coin(
     val id: String,

@@ -1,4 +1,4 @@
-package com.dscoding.cryptocoins.util
+package com.dscoding.cryptocoins.core.presentation.util
 
 import com.dscoding.cryptocoins.R
 
